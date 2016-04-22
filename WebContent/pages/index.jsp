@@ -4,9 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Sample</title>
 </head>
 <body>
-<h2>#############Hello Viewer!!!!</h2>
+<h2>Lets Add !!!!</h2>
+<a href="pages/addForm.jsp"> Click To Go to Add page</a>
 </body>
 </html>
