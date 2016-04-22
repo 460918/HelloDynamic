@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<project name="HelloDynamic" default="deploywar" xmlns:sonar="antlib:org.sonar.ant">
+<project name="HelloDynamic" default="war" xmlns:sonar="antlib:org.sonar.ant">
 	<!-- Define the properties used by the build -->
 	<property name="app.name" value="HelloDynamic" />
 	<property file="build.properties" />
