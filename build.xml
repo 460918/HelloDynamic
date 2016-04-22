@@ -1,30 +1,41 @@
 <?xml version="1.0" ?>
-<project name="HelloDynamic" default="deploywar">
+<project name="HelloDynamic" default="deploywar" xmlns:sonar="antlib:org.sonar.ant">
 	<!-- Define the properties used by the build -->
-	<property name="app.name"      value="HelloDynamic"/>
-	<property file="build.properties"/>
+	<property name="app.name" value="HelloDynamic" />
+	<property file="build.properties" />
+	<property name="sonar.host.url" value="http://localhost:9000/"/>
+
+	<!-- Define the SonarQube project properties -->
+	<property name="sonar.projectKey" value="HelloDynamic" />
+	<property name="sonar.projectName" value="HelloDynamic" />
+	<property name="sonar.projectVersion" value="1.0" />
+	<property name="sonar.language" value="java" />
+	<property name="sonar.sources" value="src" />
+	<property name="sonar.java.binaries" value="WebContent/WEB-INF/classes" />
+	<property name="sonar.tests" value="../HelloDynamic/test" />
+	<property name="sonar.sourceEncoding" value="UTF-8" /> 
 	<path id="compile.classpath">
 		<fileset dir="WebContent/WEB-INF/lib">
-			<include name="*.jar"/>
+			<include name="*.jar" />
 		</fileset>
 	</path>
 
 	<target name="init">
-		<mkdir dir="build/classes"/>
+		<mkdir dir="build/classes" />
 		<mkdir dir="dist" />
 	</target>
 
-	<target name="compile" depends="init" >
+	<target name="compile" depends="init">
 		<javac destdir="build/classes" debug="true" srcdir="src">
-			<classpath refid="compile.classpath"/>
+			<classpath refid="compile.classpath" />
 		</javac>
 	</target>
 
 	<target name="war" depends="compile">
 		<war destfile="dist/${app.name}.war" webxml="WebContent/WEB-INF/web.xml">
-			<fileset dir="WebContent"/>
-			<lib dir="WebContent/WEB-INF/lib"/>
-			<classes dir="build/classes"/>
+			<fileset dir="WebContent" />
+			<lib dir="WebContent/WEB-INF/lib" />
+			<classes dir="build/classes" />
 		</war>
 	</target>
 
@@ -32,10 +43,19 @@
 		<delete dir="dist" />
 		<delete dir="build" />
 	</target>
-	   <target name="deploywar" depends="war" description="Deploy application as a WAR file">
-	    <echo message="-----------------------------------"/>
-	    <copy todir="${deploy.path}" file='dist/${app.name}.war'/>
-	   	<echo message="-----------------------------------"/>
-	   </target>
+	<target name="deploywar" depends="war" description="Deploy application as a WAR file">
+		<echo message="-----------------------------------" />
+		<copy todir="${deploy.path}" file='dist/${app.name}.war' />
+		<echo message="-----------------------------------" />
+	</target>
+	<target name="sonar" depends="war">
+	 <!-- Define the Sonar task -->
+		   <taskdef uri="antlib:org.sonar.ant">
+		    <classpath path="D:\ACTDevelpoment\eclipse indigo with plugins\plugins\org.apache.ant_1.8.2.v20120109-1030\lib\sonarqube-ant-task-2.4" />
+		    </taskdef>
+		    
+			<!-- Execute SonarQube -->
+			<sonar:sonar />
+	 </target>
 
 </project>
